@@ -5,8 +5,8 @@ const schemaTODO = require("../schemas/schemaTODO");
 const TODO = new mongoose.model("Todo", schemaTODO);
 
 // get all TODO
-router.get("/", async (req, res) => {
-  await TODO.find({}, (err, data) => {
+router.get("/", (req, res) => {
+  TODO.find({}, (err, data) => {
     if (err) {
       res.status(500).send(err.message);
     } else {
@@ -16,8 +16,8 @@ router.get("/", async (req, res) => {
 });
 
 // get one TODO
-router.get("/:id", async (req, res) => {
-  await TODO.findOne({ _id: req.params.id }, (err, data) => {
+router.get("/:id", (req, res) => {
+  TODO.findOne({ _id: req.params.id }, (err, data) => {
     if (err) {
       res.status(500).send(err.message);
     } else {
@@ -27,9 +27,9 @@ router.get("/:id", async (req, res) => {
 });
 
 // add one TODO
-router.post("/", async (req, res) => {
+router.post("/", (req, res) => {
   const newTodo = new TODO(req.body);
-  await newTodo.save((err) => {
+  newTodo.save((err) => {
     if (err) {
       res.status(500).send(err.message);
     } else {
@@ -39,8 +39,8 @@ router.post("/", async (req, res) => {
 });
 
 // edit one TODO
-router.put("/:id", async (req, res) => {
-  await TODO.updateOne({ _id: req.params.id }, { $set: req.body }, (err) => {
+router.put("/:id", (req, res) => {
+  TODO.updateOne({ _id: req.params.id }, { $set: req.body }, (err) => {
     if (err) {
       res.status(500).send(err.message);
     } else {
@@ -50,8 +50,8 @@ router.put("/:id", async (req, res) => {
 });
 
 // delete one TODO
-router.delete("/:id", async (req, res) => {
-  await TODO.deleteOne({ _id: req.params.id }, (err) => {
+router.delete("/:id", (req, res) => {
+  TODO.deleteOne({ _id: req.params.id }, (err) => {
     if (err) {
       res.status(500).send(err.message);
     } else {
@@ -61,8 +61,8 @@ router.delete("/:id", async (req, res) => {
 });
 
 // delete all TODO
-router.delete("/", async (req, res) => {
-  await TODO.deleteMany((err) => {
+router.delete("/", (req, res) => {
+  TODO.deleteMany((err) => {
     if (err) {
       res.status(500).send(err.message);
     } else {
