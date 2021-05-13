@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const handleTODO = require("./handlers/handleTODO");
+const handleUser = require("./handlers/handleUser");
 
 // middlewares
 const app = express();
@@ -13,12 +14,16 @@ mongoose
   .connect(process.env.MONGOLINK, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   })
   .then(() => console.log("Database connected successfully"))
   .catch((err) => console.log(err));
 
-// app routes
+// todo routes
 app.use("/todo", handleTODO);
+
+// user routes
+app.use("/user", handleUser);
 
 // error handler
 app.use((err, req, res, next) => {
