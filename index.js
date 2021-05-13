@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const handleTODO = require("./handlers/handleTODO");
 const handleUser = require("./handlers/handleUser");
+const verifyToken = require("./middlewares/verifyToken");
 
 // middlewares
 const app = express();
@@ -19,18 +20,18 @@ mongoose
   .then(() => console.log("Database connected successfully"))
   .catch((err) => console.log(err));
 
-// todo routes
-app.use("/todo", handleTODO);
-
-// user routes
+// user auth routes
 app.use("/user", handleUser);
+
+// secured todo routes
+app.use("/todo", verifyToken, handleTODO);
 
 // error handler
 app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-  res.status(500).send(err.message);
+  res.status(500).send(err);
 });
 
 // start server
