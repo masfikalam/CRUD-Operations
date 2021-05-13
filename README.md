@@ -8,7 +8,7 @@ Basic CRUD operations and User authentication.
 - Edit one TODO (update).
 - Delete one TODO (delete).
 - Delete all TODO (delete).
-- User signup and login
+- User signup and login (authentication).
 
 Technologies : Node JS, Express JS, MongoDB, Mongoose, JWT, Bcrypt, Rest API
 
